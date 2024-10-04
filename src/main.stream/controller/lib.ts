@@ -1,5 +1,6 @@
 import { WindowManagerInitialConfig } from "../window.manager";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IMainStreamController {}
 
 export interface MainStreamControllerInitialConfig {
