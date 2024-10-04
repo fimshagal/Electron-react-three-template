@@ -1,6 +1,7 @@
 import { DataManager } from "../../renderer.stream/data.manager";
 import {Toolkit} from "../../lib";
 import {UiManager} from "../../renderer.stream/ui.manager";
+import {GameSceneManager} from "../../renderer.stream/game.scene.manager";
 
 export enum GameStatesNames {
     Unknown = "Unknown",
@@ -18,4 +19,5 @@ export interface GameInjectableProps {
     toolkit: Toolkit<(...args: any[]) => any>;
     dataManager: DataManager;
     uiManager: UiManager;
+    gameSceneManager: GameSceneManager;
 }

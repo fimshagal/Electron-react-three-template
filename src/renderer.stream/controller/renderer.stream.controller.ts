@@ -9,6 +9,7 @@ import { FsmInitialConfig, StateTransitionHandler, createStateTransitionHandler 
 import { GameInjectableProps } from "../../states.storage/game";
 import { UiManager, UiManagerInitialConfig } from "../ui.manager";
 import {GameSceneManager, GameSceneManagerInitialConfig} from "../game.scene.manager";
+import {Loader3d} from "../loader.3d";
 
 const RendererStreamControllerSingletonLock: string = genSingletonLock("RendererStreamController");
 
@@ -99,6 +100,7 @@ export class RendererStreamController implements IRendererStreamController {
         const injectableProps: GameInjectableProps = {
             dataManager: this._dataManager,
             uiManager: this._uiManager,
+            gameSceneManager: this._gameSceneManager,
             toolkit: {
                 requestMainAction: this.requestMainAction.bind(this),
             },

@@ -1,0 +1,1 @@
+export * from "./loader.3d";
