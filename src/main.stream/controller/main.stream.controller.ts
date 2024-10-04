@@ -65,7 +65,7 @@ export class MainStreamController implements IMainStreamController {
     }
 
     private requestRendererAction(action: RendererBridgeAction): void {
-        this._windowManager.window!.webContents?.send('action', action);
+        this._windowManager.window?.webContents?.send('action', action);
     }
 
     private applyInitialConfig(initialConfig: MainStreamControllerInitialConfig): void {

@@ -1,5 +1,5 @@
 export interface IGameSceneManager {
-
+    init(initialConfig: GameSceneManagerInitialConfig): Promise<void>;
 }
 
 export interface GameSceneManagerInitialConfig {
