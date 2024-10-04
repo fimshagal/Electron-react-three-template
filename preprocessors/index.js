@@ -4,7 +4,7 @@ const exeAssetsGeneration = () => {
     console.log("Have to be done");
 };
 
-(() => {
+(async () => {
     exeAssetsGeneration();
 })();
 
