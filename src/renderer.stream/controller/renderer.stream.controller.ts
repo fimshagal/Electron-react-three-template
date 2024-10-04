@@ -8,6 +8,7 @@ import { createMachine, createActor } from "xstate";
 import { FsmInitialConfig, StateTransitionHandler, createStateTransitionHandler } from "../../state.transition.handler";
 import { GameInjectableProps } from "../../states.storage/game";
 import { UiManager, UiManagerInitialConfig } from "../ui.manager";
+import {GameSceneManager, GameSceneManagerInitialConfig} from "../game.scene.manager";
 
 const RendererStreamControllerSingletonLock: string = genSingletonLock("RendererStreamController");
 
@@ -23,6 +24,9 @@ export class RendererStreamController implements IRendererStreamController {
 
     private _uiManagerInitialConfig: Nullable<UiManagerInitialConfig> = null;
     private _uiManager: UiManager = UiManager.getSingle();
+
+    private _gameSceneManagerInitialConfig: Nullable<GameSceneManagerInitialConfig> = null;
+    private _gameSceneManager: GameSceneManager = GameSceneManager.getSingle();
 
     private _gameFsmInitialConfig: Nullable<FsmInitialConfig> = null;
     private _gameStateMachine: Nullable<any> = null;
@@ -57,6 +61,7 @@ export class RendererStreamController implements IRendererStreamController {
 
         this.applyInitialConfig(initialConfig);
         await this.initManagers();
+        this.listenDataManager();
 
         window.BridgeApi.receive("action", this.handleOnReceiveAction.bind(this));
 
@@ -77,9 +82,14 @@ export class RendererStreamController implements IRendererStreamController {
 
     private async initManagers(): Promise<void> {
         await this._dataManager.init(this._dataManagerInitialConfig);
-        this._dataManager.events.on(DataManagerEvents.UpdateProp, (response) => console.log(`Update prop "${response.prop}" => ${response.value}`));
-
         await this._uiManager.init(this._uiManagerInitialConfig);
+        await this._gameSceneManager.init(this._gameSceneManagerInitialConfig);
+    }
+
+    private listenDataManager(): void {
+        this._dataManager.events.on(DataManagerEvents.UpdateProp, (response): void => {
+            this._uiManager.receiveDataManagerUpdate(response);
+        });
     }
 
     private initGameStateMachine(): void {
@@ -106,6 +116,7 @@ export class RendererStreamController implements IRendererStreamController {
         this._dataManagerInitialConfig = initialConfig.dataManagerInitialConfig;
         this._gameFsmInitialConfig = initialConfig.gameFsmInitialConfig;
         this._uiManagerInitialConfig = initialConfig.uiManagerInitialConfig;
+        this._gameSceneManagerInitialConfig = initialConfig.gameSceneManagerInitialConfig;
     }
 
     private handleOnReceiveAction(event, action): void {

@@ -2,6 +2,7 @@ import {IUiManager, UiManagerInitialConfig} from "./lib";
 import EventEmitter from "eventemitter3";
 import {genSingletonLock} from "../../utils";
 import {UiManagerEvents} from "./events";
+import {Dictionary} from "../../lib";
 
 const UiManagerSingletonLock: string = genSingletonLock("UiManager");
 
@@ -39,6 +40,11 @@ export class UiManager implements IUiManager {
         this._isInit = true;
 
         this.events.emit(UiManagerEvents.Init);
+    }
+
+    public receiveDataManagerUpdate(updateData: Dictionary): void {
+        const { prop, value } = updateData;
+        console.log(`Ui Manager receive prop "${prop}" updating to ${value}`);
     }
 
     private applyInitialConfig(initialConfig: UiManagerInitialConfig): void {

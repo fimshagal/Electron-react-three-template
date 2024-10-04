@@ -26,3 +26,9 @@ export interface FsmInitialConfig {
     states: typeof State[];
     xStateInitialConfig: Dictionary;
 }
+
+// Weak interface to override certain props of strong typed config
+export interface WeakFsmInitialConfig {
+    states?: typeof State[];
+    xStateInitialConfig?: Dictionary;
+}

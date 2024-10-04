@@ -59,4 +59,8 @@ export class DataManager implements IDataManager {
             .entries(initialConfig.props)
             .forEach(([key, value]) => this.updateProp(key, value));
     }
+
+    public get props(): DataProps {
+        return { ...this._props };
+    }
 }

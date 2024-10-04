@@ -55,11 +55,6 @@ export class WindowManager implements IWindowManager {
         this.events.emit(WindowManagerEvents.Init);
     }
 
-    private applyInitialConfig(initialConfig: WindowManagerInitialConfig): void {
-        this._size = initialConfig.size;
-        this._htmlSource = initialConfig.htmlSource;
-    }
-
     public createWindow(): void {
         this._window = new BrowserWindow({
             width: this._size.x,
@@ -83,6 +78,11 @@ export class WindowManager implements IWindowManager {
         }
 
         this._window.on("closed", () => this._window.instance = null);
+    }
+
+    private applyInitialConfig(initialConfig: WindowManagerInitialConfig): void {
+        this._size = initialConfig.size;
+        this._htmlSource = initialConfig.htmlSource;
     }
 
     public get window(): Nullable<any> {
