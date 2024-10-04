@@ -1,0 +1,16 @@
+[data-component="ViewLayer"] {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+[data-component="ViewLayer"][data-view-layer="gameScene"] {
+    z-index: 0;
+}
+
+[data-component="ViewLayer"][data-view-layer="ui"] {
+    z-index: 1;
+}
