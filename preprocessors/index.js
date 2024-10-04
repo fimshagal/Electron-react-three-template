@@ -1,7 +1,7 @@
-const AssetsClassGenerator = require('./assets.class.generator/assets.class.generator');
+// const AssetsClassGenerator = require('./assets.class.generator/assets.class.generator');
 
 const exeAssetsGeneration = () => {
-    console.log(AssetsClassGenerator);
+    console.log("Have to be done");
 };
 
 (() => {
